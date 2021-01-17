@@ -4,17 +4,17 @@ import { fifaData } from './fifa.js';
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 1: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Practice accessing data by console.log-ing the following pieces of data note, you may want to filter the data first 😉*/
-
+const filteredData = fifaData.filter(year => year.Year === 2014);
 //(a) Home Team name for 2014 world cup final
-
+console.log(filteredData["Home Team Name"]);
 //(b) Away Team name for 2014 world cup final
-
+console.log(filteredData["Away Team Name"]);
 //(c) Home Team goals for 2014 world cup final
-
+console.log(filteredData["Home Team Goals"]);
 //(d) Away Team goals for 2014 world cup final
-
+console.log(filteredData["Away Team Goals"]);
 //(e) Winner of 2014 world cup final */
-
+console.log(filteredData["Winner"]);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use getFinals to do the following:
@@ -54,7 +54,7 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(cb, data) {
+function getWinners(data, cb) {
   const winners = [];
   cb(data).forEach(object => {
       if (object["Home Team Goals"] > object["Away Team Goals"]) {
@@ -101,8 +101,14 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+function getAverageGoals(cb) {
+   const home = cb.reduce((accumulator, score) => {
+       return score["Home Team Goals"] + accumulator
+   }, 0);
+   const away = cb.reduce((accumulator, score) => {
+       return score["Away Team Goals"] + accumulator
+   }, 0);
+   return ((home/cb.length) + (away/cb.length)).toFixed(2)
 }
 
 
